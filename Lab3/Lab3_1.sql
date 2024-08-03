@@ -75,7 +75,7 @@ create table SalesOrderDetails(
     references product (Product_Number)
 );
 
-INSERT INTO `clients`(`Client_Number`, `Client_Name`, `Address`, `City`, `Pincode`, `Province`, `Amount_Paid`, `Amount_Due`) VALUES
+INSERT INTO clients(Client_Number, Client_Name, Address, City, Pincode, Province, Amount_Paid, Amount_Due) VALUES
 ('C101','Mai Xuan','Phu Hoa','Dai An',700001,'Binh Duong',10000,5000),
 ('C102','Le Xuan','Phu Hoa','Thu Dau Mot',700051,'Binh Duong',18000,3000),
 ('C103','Trinh Huu','Phu Loi','Da Lat',700051,'Lam Dong ',7000,3200),
@@ -87,7 +87,7 @@ INSERT INTO `clients`(`Client_Number`, `Client_Name`, `Address`, `City`, `Pincod
 ('C109','Duong Thanh','Phu Hoa','Ho Chi Minh',700011,'Ho Chi Minh',12000,8000),
 ('C110','Tran Minh','Phu My','Hanoi',700005,'Hanoi',9000,1000);
 
-INSERT INTO `product`(`Product_Number`, `Product_Name`, `Quantity_On_Hand`, `Quantity_Sell`, `Sell_Price`, `Cost_Price`) VALUES
+INSERT INTO product(Product_Number, Product_Name, Quantity_On_Hand, Quantity_Sell, Sell_Price, Cost_Price) VALUES
 ('P1001','TV',10,30,1000,800),
 ('P1002','Laptop',12,25,1500,1100),
 ('P1003','AC',23,10,400,300),
@@ -97,15 +97,17 @@ INSERT INTO `product`(`Product_Number`, `Product_Name`, `Quantity_On_Hand`, `Qua
 ('P1007','Keyboard',45,60,120,90),
 ('P1008','Headset',63,75,50,40);
 
-INSERT INTO `salesman` VALUES
+INSERT INTO salesman VALUES
 ('S001','Huu','Phu Tan','Ho Chi Minh',700002,'Ho Chi Minh',15000,50,35,'0902361123'),
 ('S002','Phat','Tan An','Hanoi',700005,'Hanoi',25000,100,110,'0903216542'),
 ('S003','Khoa','Phu Hoa','Thu Dau Mot',700051,'Binh Duong',17500,40,30,'0904589632'),
 ('S004','Tien','Phu Hoa','Dai An',700023,'Binh Duong',16500,70,72,'0908654723'),
 ('S005','Deb','Hoa Phu','Thu Dau Mot',700051,'Binh Duong',13500,60,48,'0903213659'),
-('S006','Tin','Chanh My','Da Lat',700032,'Lam Dong',20000,80,55,'0907853497');
+('S006','Tin','Chanh My','Da Lat',700032,'Lam Dong',20000,80,55,'0907853497'),
+('S007','Quang','Chanh My','Da Lat',700032,'Lam Dong',25000,90,95,'0900853487'),
+('S008','Hoa','Hoa Phu','Thu Dau Mot',700051,'Binh Duong',13500,50,75,'0998213659');
 
-INSERT INTO `SalesOrder` VALUES
+INSERT INTO SalesOrder VALUES
 ('O20001','2022-01-15','C101','S003','Delivered','2022-02-10','Successful'),
 ('O20002','2022-01-25','C102','S003','Delivered','2022-02-15','Cancelled'),
 ('O20003','2022-01-31','C103','S002','Delivered','2022-04-03','Successful'),
@@ -119,9 +121,11 @@ INSERT INTO `SalesOrder` VALUES
 ('O20011','2022-05-08','C107','S005','Ready to Ship',null,'Cancelled'),
 ('O20012','2022-05-12','C108','S004','On Way',null,'Successful'),
 ('O20013','2022-05-16','C109','S001','Ready to Ship',null,'In Process'),
-('O20014','2022-05-16','C110','S001','On Way',null,'Successful');
+('O20014','2022-05-16','C110','S001','On Way',null,'Successful'),
+('O20015','2022-05-12','C108','S007','On Way', '2022-05-15','Successful'),
+('O20016','2022-05-16','C109','S008','Ready to Ship',null,'In Process');
 
-INSERT INTO `SalesOrderDetails` VALUES
+INSERT INTO SalesOrderDetails VALUES
 ('O20001','P1001',5),
 ('O20001','P1002',4),
 ('O20002','P1007',10),
@@ -140,7 +144,11 @@ INSERT INTO `SalesOrderDetails` VALUES
 ('O20012','P1005',3),
 ('O20012','P1001',2),
 ('O20013','P1006',10),
-('O20014','P1002',20);
+('O20014','P1002',20),
+('O20015','P1008',15),
+('O20015','P1007',10),
+('O20016','P1007',20),
+('O20016','P1003',5);
 
 ALTER TABLE SalesOrderDetails
 DROP COLUMN Discount_Rate;
