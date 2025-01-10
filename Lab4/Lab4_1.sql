@@ -308,42 +308,37 @@ SELECT *
 FROM clients
 ORDER BY City, Amount_Due DESC;
 
--- 55.	Display the data of sales orders depending on their delivery status from the current date to the old date.
-SELECT *
-FROM SalesOrder
-ORDER BY Delivery_Date DESC;
-
--- 56.	Display last five sales order information from sales order table.
+-- 55.	Display last five sales order information from sales order table.
 SELECT *
 FROM SalesOrder
 ORDER BY Order_Number DESC
 LIMIT 5;
 
--- 57.	Count the pincode in client table.
+-- 56.	Count the pincode in client table.
 SELECT COUNT(DISTINCT Pincode)
 AS Number_Of_Pincode
 FROM clients;
 
--- 58.	How many clients are living in Binh Duong?
+-- 57.	How many clients are living in Binh Duong?
 SELECT COUNT(*) 
 AS Binh_Duong_Clients
 FROM clients
 WHERE Province like 'Binh Duong';
 
--- 59.	Count the clients for each province.
+-- 58.	Count the clients for each province.
 SELECT Province, COUNT(*)
 AS Number_Of_Clients
 FROM clients
 GROUP BY Province;
 
--- 60.	If there are more than three clients, find the name of the province and the number of clients in each province.
+-- 59.	If there are more than three clients, find the name of the province and the number of clients in each province.
 SELECT Province, COUNT(*)
 AS Number_Of_Clients
 FROM clients
 GROUP BY Province
 HAVING COUNT(*) > 3;
 
--- 61.	Display product number and product name and count number orders of each product more than 1 (in ascending order).
+-- 60.	Display product number and product name and count number orders of each product more than 1 (in ascending order).
 SELECT p.Product_Number, p.Product_Name, COUNT(so.Order_Number)
 AS Order_Count
 FROM product p
@@ -352,7 +347,7 @@ GROUP BY p.Product_Number, p.Product_Name
 HAVING COUNT(so.Order_Number) > 1
 ORDER BY Order_Count ASC;
 
--- 62.	Find products which have more quantity on hand than 20 and less than average of quantity on hand.
+-- 61.	Find products which have more quantity on hand than 20 and less than average of quantity on hand.
 SELECT *
 FROM product
 WHERE Quantity_On_Hand > 20 

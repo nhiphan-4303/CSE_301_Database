@@ -140,86 +140,99 @@ ADD CONSTRAINT check_amount_paid_non_negative CHECK (
 		Amount_Paid >= 0 and Amount_Due >=0
 );
 
--- 20.	Remove the constraint from pincode;
-alter table clients drop constraint check_pincode;
+-- 20. Do not enforce the check constraint for pincode.
+ALTER TABLE Clients
+DROP CONSTRAINT check_pincode;
 
--- 21.	The sell price and cost price should be unique.
+-- 21. How to alter a check constraint enforcement state?
+-- Drop the CHECK constraint
+ALTER TABLE Clients
+DROP CHECK check_pincode;
+
+-- Recreate the CHECK constraint
+ALTER TABLE Clients
+ADD CONSTRAINT check_pincode CHECK (Pincode LIKE '7%');
+
+-- 22.	The sell price and cost price should be unique.
 ALTER TABLE product
 ADD CONSTRAINT unique_sell_price UNIQUE (Sell_Price);
 
 ALTER TABLE product
 ADD CONSTRAINT unique_cost_price UNIQUE (Cost_Price);
 
--- 22.	The sell price and cost price should not be unique.
+-- 23.	The sell price and cost price should not be unique.
 ALTER TABLE product
 DROP CONSTRAINT unique_sell_price;
 
 ALTER TABLE product
 DROP CONSTRAINT unique_cost_price;
 
--- 23.	Remove unique constraint from product name.
+-- 24.	Remove unique constraint from product name.
 ALTER TABLE product
 ADD CONSTRAINT unique_product_name unique (product_name);
 
 ALTER TABLE product
 DROP CONSTRAINT unique_product_name;
 
--- 24.	Update the delivery status to “Delivered” for the product number P1007.
+-- 25.	Update the delivery status to “Delivered” for the product number P1007.
 update SalesOrder so
 inner join SalesOrderDetails sod on so.Order_Number = sod.Order_Number
 inner join Product p on p.Product_Number = sod.Product_Number
 set so.Delivery_Status = 'Delivered'
 where p.Product_Number = 'P1007';
 
--- 25.	Change address and city to ‘Phu Hoa’ and ‘Thu Dau Mot’ where client number is C104.
+-- 26.	Change address and city to ‘Phu Hoa’ and ‘Thu Dau Mot’ where client number is C104.
 update clients
 set Address = 'Phu Hoa', city = 'Thu Dau Mot'
 where Client_Number = 'C104';
 
--- 26.	Add a new column to “Product” table named as “Exp_Date”, data type is Date.
+-- 27.	Add a new column to “Product” table named as “Exp_Date”, data type is Date.
 alter table product
 add column Exp_Date date;
 
--- 27.	Add a new column to “Clients” table named as “Phone”, data type is varchar and size is 15.
+-- 28.	Add a new column to “Clients” table named as “Phone”, data type is varchar and size is 15.
 alter table clients
 add column Phone varchar(15);
 
--- 28.	Update remarks as “Good” for all salesman.
+-- 29.	Update remarks as “Good” for all salesman.
 SET SQL_SAFE_UPDATES = 0;
 UPDATE Salesman
 SET remark = 'Good';
 
--- 29.	Change remarks to "bad" whose salesman number is "S004".
+-- 30.	Change remarks to "bad" whose salesman number is "S004".
 update salesman
 set remark = 'Bad'
 where salesman_number = 'S004';
 
--- 30.	Modify the data type of “Phone” in “Clients” table with varchar from size 15 to size is 10.
+-- 31.	Modify the data type of “Phone” in “Clients” table with varchar from size 15 to size is 10.
 alter table clients
 modify phone varchar(10);
 
--- 31.	Delete the “Phone” column from “Clients” table.
+-- 32.	Delete the “Phone” column from “Clients” table.
 alter table clients
 drop column phone;
 
--- 32.	alter table Clients drop column Phone;
+-- 33.	alter table Clients drop column Phone;
 alter table clients
 drop column phone;
 
--- 33.	Change the sell price of Mouse to 120.
+-- 34.	Change the sell price of Mouse to 120.
 update product
 set sell_price = 120
 where product_name = 'Mouse';
 
--- 34.	Change the city of client number C104 to “Ben Cat”.
+-- 35.	Change the city of client number C104 to “Ben Cat”.
 update clients
 set city = 'Ben Cat'
 where Client_Number = 'C104';
 
--- 35.	If On_Hand_Quantity greater than 5, then 10% discount. If On_Hand_Quantity greater than 10, then 15% discount. Othrwise, no discount.
+-- 36.	If On_Hand_Quantity greater than 5, then 10% discount. If On_Hand_Quantity greater than 10, then 15% discount. Othrwise, no discount.
 update product
 set Discount_Rate = case
 	when Quantity_On_Hand > 10 then 0.15
     when Quantity_On_Hand > 5 then 0.1
     else 0
 end;
+
+
+
